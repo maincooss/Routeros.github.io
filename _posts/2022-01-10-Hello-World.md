@@ -1,11 +1,150 @@
 ---
 layout: post
-title: 尴尬
+title: 西安
 ---
 
-Next you can update your site name, avatar and other options using the _config.yml file in the root of your repository (shown below).
+# 西安一码通宕机时的十几个巧合 | 致歉与澄清
 
-![_config.yml]({{ site.baseurl }}/images/config.png)
+原创 任易 [任易](javascript:void(0);) *2022-01-07 08:03*
 
-The easiest way to make your first post is to edit this one. Go into /_posts/ and update the Hello World markdown file. For more instructions head over to the [Jekyll Now repository](https://github.com/barryclark/jekyll-now) on GitHub.
-[西安一码通宕机时的十几个巧合  致歉与澄清.pdf](https://github.com/maincooss/maincooss.github.io/files/7836774/default.pdf)
+我首先要郑重致歉，并正式澄清，西安大数据管理局建设的西安一码通，并未发生违反《数据安全法》的情况。
+
+昨天早上我发的关于西安一码通服务器归属地的问题，是因为我在凌晨眼花，误将testixian.cn打成了testxian.cn（少了一个中间的i），又发现testxian.cn的服务器在美国，于是义愤填膺的进行了错误分析，结果搞错了部分事实，**非常抱歉**！
+
+testxian.cn这个网站的IP地址，是103.224.182.249，然后反查了一下这个IP的归属地，能看到这个IP是美国加利福尼亚；而李逵网站testixian.cn这个网站的IP地址，才是正常的，在陕西省电信天翼云。
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/s0uFZlTUNfwyskM7uBqwe7uyoicE97icyAXorQVLQrjZwQyRVS1OPBp4HSU6cjzaapE5iclw0F2XicpAzalcb3FjZQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+但是我为什么昨晚会如此坚定呢？因为这个李鬼网址（testxian.cn）做得实在太像了，如果说我只发现一级域名（testxian.cn）一个重合，然后我义愤填膺洋洋洒洒的写了一堆，那是我大意马虎；
+
+而李逵网址和李鬼网址不仅长得像，连二级域名都一模一样，等于是李逵和李鬼的几个儿子都长得一样，比如account（用户）、gateway（网关）、test（测试）、ymtrh（一码通）、testymtrh（测试一码通），李鬼网站还多了ymtm（一码通m）这个新儿子，所以我才错把李逵当李鬼了。（通过ip138查询）
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/s0uFZlTUNfwyskM7uBqwe7uyoicE97icyAlWTgqKsAKibeSCyuBOtKrLLljPX8AcCNTWLiak28r6hRsRE5gvR05k1g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+既然排除了西安市民个人信息数据出国的直接证据，但是这个李鬼网站仍然让人不寒而栗。他为什么会与官方网站的网址如此相似，甚至丝丝入扣，注册者是单纯想蹭个热点么？
+
+连续9个二级域名都是巧合的一致，只能说明是故意注册的。但注册者的目的是什么，我们就不得而知了，毕竟没有实锤证据，也就没法多说什么。但这个域名是在2021年12月31日注册的，又是个惊人的巧合。
+
+而这个李鬼域名是什么时候创建的呢？**是2021年12月31日**；4天之后，西安一码通就发生了再次崩溃，会不会是有人误把原来部分代码中的testixian改成了testxian，然后发布到生产环境，结果西安一码通自然会直接崩溃；而在崩溃期间，有心人能做很多事了。
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/s0uFZlTUNfwyskM7uBqwe7uyoicE97icyAskibzL8I59smjokibkx5CLVgwHsTmIfLia2R35yOwlyAd2jGYC2lGZ45Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+从李鬼域名被注册开始，到西安一码通第二次崩溃，中间**只间隔了3天假期**，这中间，我们只能怀疑是否有关联性，并没法做出结论;但是这短暂的时间，和极度的巧合，已经足够让人浮想联翩了。
+
+网友@知乎用户xv4Ddk研究了西安一码通的源代码，在 pages\index\index.wxml 中找到了个人电子码，及其绑定的点击事件「onElectronCode」，进而跟踪到「onYmtLogin」->「toYmtLink」-> 「toElectronCode」。
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/s0uFZlTUNfwyskM7uBqwe7uyoicE97icyAgWuv2mOusGHvcttzH55PYNXJNhvpfZgpfhogARTKn9GPMfzysaCThA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+原来西安一码通是用小程序打开外部网页「https://data.xa.gov.cn/ptrace/view/userLogin.html」，并且调用了qrcode.js在手机端生成了二维码——那您做这个小程序图的又是啥？西安一码通小程序里面调用了那么多第三方服务，为的又是啥？**不怕数据泄露么**？
+
+**这个操作是图什么呢**？展示一个二维码完全可以用微信小程序直接实现，一个数据接口最多也就使用1～2KB流量，完全没必要用打开一个外部网页，额外增加用户的流量开销不说，还会增加服务端的压力，凭空增加bug风险。
+
+更令人疑惑的是，西安一码通除了调取政府官方数据和腾讯地图之外，还使用了很多外部服务，例如数云的微信营销服务（apps.eshiyun.info）这个主要是做广告营销的，俗称卖点击，但是西安一码通现在并没有广告；
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/s0uFZlTUNfwyskM7uBqwe7uyoicE97icyAUSJInBF42ia74vvexhOLThicp9x1NQAkQW06RiaYbNibV5W7U6COMTn28g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+还有友盟的数据跟踪服务(umini.shujupie.com)，这个是拿来记录使用小程序的用户信息的，包括头像、openid、访问时间、访问频次等。这个也很奇怪，开发者要使用友盟公司的服务，记录所有西安一码通用户的使用痕迹，又是想要干嘛呢？政府提供的一码通服务，直接在一码通后台记录访问情况就好，没必要用第三方服务记录居民使用数据。
+
+相比之下，北京和上海的健康码小程序是不是干净多了，没有奇怪的第三方服务，没有test，更没有内网穿透。
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/s0uFZlTUNfwyskM7uBqwe7uyoicE97icyAzibR0icFwhxPTGV2H9wOXIklQTJ6qgGxnfqJFv7tCjQ3EC0fdBOa8rkg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+除了这两个之外，还有一个服务网址引起了我的注意：wangyanqiang.natappvip.cc。我用wget想看看这里面有啥，结果这个域名返回了一个404。
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/s0uFZlTUNfwyskM7uBqwe7uyoicE97icyAEg2jhIdYVfoTbSlBJpia9lAyNdllBXZWqofcvCVyQjKTpT5EIuRC5Rw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+为什么这个域名恰好在1月4日当天，换了一个IP，而与此同时，西安一码通就打不开了呢？
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/s0uFZlTUNfwyskM7uBqwe7uyoicE97icyAJZjulWLHXDXpVDtj2bGEo2IRsibnYSiaOImPKRQyhQ9GeicZib5DxGSf0Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+因为这个顶级域名归属于成都三百牛公司（ICP备案），三百牛的产品，恰好是内网穿透natapp（https://natapp.cn/article/about）。而内网穿透的作用，就是让某个来自外网的电脑可以直接访问**政府内网**，这种配置是没法通过等保的。
+
+![图片](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==)
+
+无论西安电信还是西安东软，在西安当地都有人可以上门服务，完全没必要在小程序上搭建一个内网穿透服务的，所以这个行为缺乏合理性，很难解释原因。
+
+而wangyanqiang.natappvip.cc这个用于内网穿透的二级域名，恰好在2022年1月4日（西安一码通崩溃那天）更换了一个新的IP地址，也就是内网穿透需要重新配置一下，结果就**再次发生了巧合**。真想知道1月4号那天，有没有人利用这个内网穿透服务做了什么错误操作……
+
+我在Google上找到了一点线索：wangyanqiang这个内网穿透域名出现在gitlab里面，而且是作为demo存在的。为啥西安一码通正式发布的服务，却跟Gitlab上面的公开代码如此相似呢？**难道又是巧合**？如果不是巧合，那就是抄的**核酸检测预约小程序**的代码？
+
+![图片](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==)
+
+另外，在神文《“科技抗疫”中流砥柱：中国电信西安分公司“一码通”服务平台保障专班》中写道：
+
+> 为确保系统运行更高效，他们将一张图片从1MB压缩到500KB，再从500KB优化到100KB。这样的工作看似简单，却蕴含着高技术含量，他们连续两天两夜守在电脑前，终于攻下难关。
+
+大哥你们的二维码是在用户端生成的啊，需要压缩什么图片呢？难道是因为要用小程序的打开外部网页？可图片的压缩只要调整压缩算法、降低质量就行了，**这样的工作有啥技术含量，需要两天两夜守在电脑前呢**？
+
+这样业余的团队，到底有没有设置开发环境、测试环境、生产环境？在新代码正式上生产环境之前，难道没有在测试环境测试么？难道正式发布到生产环境之前，没有责任人员审核么？
+
+再回顾一则关于西安数字化转型的新闻，只觉得百感交集。
+
+> 西安市“政府数字化转型”平台整体架构由“133N”组成，即建设一个市级政务云平台；建设政务服务、政务应用、政务数据三大支撑体系；建设标准规范、安全保障、统一运维三大保障体系；建设多个面向政府、企业、群众的业务应用系统。“该平台既是一朵‘政务云’，又是一朵‘市民云’。”**西安市大数据资源管理局党组书记、局长刘军**介绍说。
+
+1月5日，**西安市大数据资源管理局党组书记、局长刘军**因为履职不力，被停职检查。
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/s0uFZlTUNfwyskM7uBqwe7uyoicE97icyA18QqCJTryOFiaSQKDXARrFogI1enmF7n3maDOg8rOyIR3XpicSnJcvCQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+# 层层外包、管理松散
+
+为什么西安一码通频频发生「**关键时刻码不亮**」的问题？
+
+![图片](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==)
+
+第一次发生问题还可以解释为经验不足，比如首次遭遇流量洪峰，最可能是强行把健康码和核酸检测结果进行联合查询，导致程序因为没有返回值而卡死。
+
+大家同为IT狗，写的程序有Bug是可预见的事，毕竟都是新开发的程序，而不是迭代完善了五六年的软件，有Bug属于不可抗力。
+
+发生这个事情的核心原因，大概率是管理松散，重视不够。没人觉得一码通是个很难的事，随手找人开发就好，结果在早期系统架构设计时就不完善，直接用关系型数据库+小程序打开网页，实现迅速上马。
+
+第一次一码通系统崩溃，是因为西安需要在一码通界面上显示核酸检测结果，我认为是菜鸟开发直接连接了核酸检测结果的数据库，完全没有考虑过西安一码通的日活可能超过1300万人次（西安1300万人口，每天不止查询一次）。
+
+这样庞大的**流量洪峰**，直接压垮了核酸检测结果数据库，然后核酸检测结果不反馈，西安二维码页面的后台数据无法获取，导致qrcode.js这个页面刷不出来结果；而当西安人民反复刷新的时候，二维码页面因为压力过大game over。所以西安一码通第一次恢复，等于做了回滚，放弃显示核酸检测结果的功能。
+
+但是第二次，2022年1月4日，西安一码通再次发生崩溃问题就说不过去了。在这种情况下，西安一码通偏偏又有如此多的巧合，还是令人心生疑惑。
+
+能发生这么多的巧合，还是**层层转包造成的管理松散、信息传递失真和开发人员频繁变动**。
+
+证据来自澎湃新闻的报道《“科技抗疫”中流砥柱：中国电信西安分公司“一码通”服务平台保障专班》（文章已经下线）
+
+https://m.thepaper.cn/baijiahao_13083245
+
+> 在西安市疫情防控指挥部的统一指挥下，保障专班召之即来、来即能战，主动整合既有产品能力，**全体成员三天三夜不眠不休**，**研发出西安市个人电子识别码**。2月16日，“一码通”在曲江新区试点上线试运行；2月18日，“一码通”在全市上线试运行。
+
+光看这个报道，读者都会觉得这是中国电信西安分公司做的工作吧？但是很遗憾，并不是，证据来自中国电信在2020年12月9日的招标公告（中国电信集团阳光采购网）。
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/s0uFZlTUNfwyskM7uBqwe7uyoicE97icyArjK8BE4nQibb9tZkmacyXJibgschlP5urNIeoffDCu9HR2ibQl0hJDQ1w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+公告中非常清晰的写道：一码通信息技术平台项目单一来源采购供应商：西安东软系统集成有限公司，这是一家东软集团100%控股的子公司。
+
+这就说明，西安一码通软件系统是西安东软开发和维护的。东软集团的研发能力肯定毋庸置疑，但是所有的IT大厂都有一个习惯：**人力外包**。
+
+这个项目，大概率是西安电信派了一个项目经理，带着西安东软的开发团队，快速基于H5页面+远程数据库+小程序打开网页 进行开发，先把基本功能架构搭起来，把业务跑起来，至于架构是否具备可扩展性，先顾不上那么多了。
+
+对于西安一码通项目，我相信在2020年2月，无论是西安电信，还是西安东软，肯定都派出骨干员工，不计代价全力开发的，这我们必须要肯定2020年他们的成绩。
+
+但是当疫情得到控制之后，对于西安东软来说，这些原始开发者，都是能创造效益的骨干员工，绝不可能一直放在运维岗位上，这就很有可能会出乱子的。
+
+他们在一码通稳定之后，并没有及时进行系统重构和调优，甚至可能把原来的骨干成员调到别的项目上，原来的开发人员也很可能早已流失，而是放进来某些外包人员；
+
+估计某个天才外包人员，又不知道在哪里搞的代码，结果却部署了**内网穿透服务、微信营销广告服务、用户数据跟踪服务**——理论上有这些第三方服务，特别是内网穿透服务在，肯定过不了等保的。
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/s0uFZlTUNfwyskM7uBqwe7uyoicE97icyAuIsncylA1cWd3qgo75LrIe9hS4Sqp81LWsUMSVOceaQ9Aph5uJV6kw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+仅从西安一码通的源代码来看，的确有点专业程度不够；而且与一码通宕机同时发生的，还有抄袭的代码、**崭新注册、高仿的域名**，以及一个**内网穿透服务**更换了IP地址，这中间的巧合，实在是太多了点。
+
+既然西安一码通的开发水平不高，开发团队又是层层外包、管理松散、调用大量无意义第三方服务，以网络和数据安全的角度来看，就必须防着某些有心人通过内网穿透去访问政府内网，而且要用严格的安全制度进行管理，但西安一码通没有做。
+
+因为西安一码通身上发生的巧合太多了，不得不提醒一下风险问题。毕竟，只有千日做贼，没有千日防贼的道理。
+
+# 再次致歉
+
+在读者指出问题后，我在发送15分钟后便已经删除此文章，可没想到截图仍然在传播，到了昨晚12点，突然有300多人加我好友，更有二十几个人发来对我菊花的问候，在此郑重道歉，并进行澄清。
+
+西安大数据管理局建设的西安一码通，目前仅有理论上的风险，并未发生违反《数据安全法》的情况。**我会为我的言论负责**，再次致歉。
+
+也请贵单位注意一下2021年12月31日注册testxian.cn的这位宁某某，还有某位部署wangyanqiang.natappvip.cc这个内网穿透服务的员工，以便于提前规避安全风险。
+
+请各位读者大大放我一马，不要再传播昨天的文章截图。现在西安形势正在好转，我昨天已删除文章的截图被很多人流传，作为抗疫不力的证据，而我又无力辟谣，只能坐视有一批人挑动不明真相的人，抹黑正在变好的形势，更让我非常愧疚。
+
+我以后一定反复核实，我保证！
